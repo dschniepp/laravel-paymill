@@ -22,7 +22,7 @@ class LaravelPaymillServiceProvider extends ServiceProvider {
             __DIR__.'/../../config/config.php' => config_path('paymill.php'),
         ]);
 
-        $public_key = config('paymill.public_key');
+        $public_key = config('services.paymill.public_key');
 
         $this->app['view']->share('paymill_public_key', $public_key);
 	}
@@ -35,11 +35,11 @@ class LaravelPaymillServiceProvider extends ServiceProvider {
 	public function register()
 	{
 
-		$this->app['paymill'] = $this->app->share(function ($app) {
+	    $this->app['paymill'] = $this->app->share(function ($app) {
 
-            $private_key = config('paymill.private_key');
+        	$private_key = config('services.paymill.private_key');
 
-            return new Paymill($private_key);
+        	return new Paymill($private_key);
             
         });
 
